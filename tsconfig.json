@@ -1,26 +1,26 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true,
+    "lib": ["dom", "dom.iterable", "esnext"],  // Bibliotecas para DOM e ESNext
+    "allowJs": true,  // Permitir arquivos .js no projeto
+    "skipLibCheck": true,  // Ignorar verificações de bibliotecas
+    "strict": true,  // Habilita verificações estritas
+    "noEmit": true,  // Impede que o TS emita arquivos JS (Next.js lida com isso)
+    "esModuleInterop": true,  // Permite compatibilidade com CommonJS
+    "module": "esnext",  // Usa ESModules
+    "moduleResolution": "node",  // Resolve módulos como no Node.js
+    "resolveJsonModule": true,  // Permite importação de arquivos JSON
+    "isolatedModules": true,  // Necessário para JSX preservado
+    "jsx": "react-jsx",  // Nova transformação JSX do React 17+
+    "incremental": true,  // Habilita a compilação incremental
+    "paths": {
+      "@/*": ["./src/*"]  // Atalhos para facilitar importações
+    },
     "plugins": [
       {
-        "name": "next"
+        "name": "next"  // Plugin Next.js para integração com TypeScript
       }
-    ],
-    "paths": {
-      "@/*": ["./src/*"]
-    }
+    ]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],  // Incluir arquivos TypeScript e JSX
+  "exclude": ["node_modules"]  // Excluir bibliotecas de terceiros
 }
