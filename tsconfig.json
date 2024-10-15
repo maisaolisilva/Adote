@@ -1,26 +1,39 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],  // Bibliotecas para DOM e ESNext
-    "allowJs": true,  // Permitir arquivos .js no projeto
-    "skipLibCheck": true,  // Ignorar verificações de bibliotecas
-    "strict": true,  // Habilita verificações estritas
-    "noEmit": true,  // Impede que o TS emita arquivos JS (Next.js lida com isso)
-    "esModuleInterop": true,  // Permite compatibilidade com CommonJS
-    "module": "esnext",  // Usa ESModules
-    "moduleResolution": "node",  // Resolve módulos como no Node.js
-    "resolveJsonModule": true,  // Permite importação de arquivos JSON
-    "isolatedModules": true,  // Necessário para JSX preservado
-    "jsx": "react-jsx",  // Nova transformação JSX do React 17+
-    "incremental": true,  // Habilita a compilação incremental
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ], // Bibliotecas para DOM e ESNext
+    "allowJs": true, // Permitir arquivos .js no projeto
+    "skipLibCheck": true, // Ignorar verificações de bibliotecas
+    "strict": true, // Habilita verificações estritas
+    "noEmit": true, // Impede que o TS emita arquivos JS (Next.js lida com isso)
+    "esModuleInterop": true, // Permite compatibilidade com CommonJS
+    "module": "esnext", // Usa ESModules
+    "moduleResolution": "node", // Resolve módulos como no Node.js
+    "resolveJsonModule": true, // Permite importação de arquivos JSON
+    "isolatedModules": true, // Necessário para JSX preservado
+    "jsx": "preserve", // Nova transformação JSX do React 17+
+    "incremental": true, // Habilita a compilação incremental
     "paths": {
-      "@/*": ["./src/*"]  // Atalhos para facilitar importações
+      "@/*": [
+        "./src/*"
+      ] // Atalhos para facilitar importações
     },
     "plugins": [
       {
-        "name": "next"  // Plugin Next.js para integração com TypeScript
+        "name": "next" // Plugin Next.js para integração com TypeScript
       }
     ]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],  // Incluir arquivos TypeScript e JSX
-  "exclude": ["node_modules"]  // Excluir bibliotecas de terceiros
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ], // Incluir arquivos TypeScript e JSX
+  "exclude": [
+    "node_modules"
+  ] // Excluir bibliotecas de terceiros
 }
