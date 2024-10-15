@@ -3,6 +3,42 @@
 import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import styled from 'styled-components';
+import Titulo from '@/components/Titulo';
+
+const StyledSection = styled.section`
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    text-align: center;
+    input{
+        border: 2px solid #789DBC;
+        width: 100%;
+        height: 30px;
+        margin: 2px 0;
+        border-radius: 20px;
+    }
+
+    label{
+        font-size: 24px;
+        color: #624E88;
+    }
+    
+    button{
+        background-color: #624E88;
+        border: none;
+        padding: 0.5em 2em;
+        border-radius: 20px;
+        font-size: 24px;
+        color: #FEF9F2;
+        margin-top: 20px;
+        &:hover{
+            cursor: pointer;
+            opacity: 0.8;
+        }
+    }
+`
 
 //Página de login personalizada
 export default function SignInPage() {
@@ -29,8 +65,8 @@ export default function SignInPage() {
   };
 
   return (
-    <div>
-      <h1>Login</h1>
+    <StyledSection>
+      <Titulo>Login</Titulo>
       {error && <p style={{ color: 'red' }}>{error}</p>}
       <form onSubmit={handleSubmit}>
         <label>
@@ -55,6 +91,6 @@ export default function SignInPage() {
         <br />
         <button type="submit">Entrar</button>
       </form>
-    </div>
+    </StyledSection>
   );
 }
