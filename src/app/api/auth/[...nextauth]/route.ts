@@ -1,7 +1,9 @@
+//API Route lida com a autenticação
 import NextAuth from 'next-auth';
-import CredentialsProvider from 'next-auth/providers/credentials';
+import CredentialsProvider from 'next-auth/providers/credentials'; //permite autenticação personalizada com emais e senha
 
 const authOptions = {
+    //Lista de provedores de autenticação
   providers: [
     CredentialsProvider({
       name: 'Credentials',
@@ -9,6 +11,7 @@ const authOptions = {
         email: { label: 'Email', type: 'email' },
         password: { label: 'Password', type: 'password' },
       },
+      //função que verifica a validação das credenciais
       async authorize(credentials) {
         // Simulação de validação (substituir por lógica real de autenticação)
         const user = { id: '1', name: 'John Doe', email: 'john@example.com' };
