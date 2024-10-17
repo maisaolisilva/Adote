@@ -18,6 +18,8 @@ const StyledSection = styled.section`
         height: 30px;
         margin: 2px 0;
         border-radius: 20px;
+        text-align: center;
+        font-size: 16px;
     }
 
     label{
