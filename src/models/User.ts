@@ -1,7 +1,9 @@
+//Mongoose é uma biblioteca para modelar dados no MongoDB usando JavaScript ou TypeScript
 import mongoose, { Schema, model, models } from 'mongoose';
 import bcrypt from 'bcryptjs';
 
 // Interface para tipar o utilizador
+//O extends mongoose.Document garante acesso a propriedades e métodos padrão do Mongoose, como _id() e save()
 interface IUser extends mongoose.Document {
   fullName: string;
   email: string;
@@ -9,10 +11,10 @@ interface IUser extends mongoose.Document {
   password: string;
   birthDate: Date;
   address: string;
-  comparePassword(enteredPassword: string): Promise<boolean>;
+  comparePassword(enteredPassword: string): Promise<boolean>; //mátodo que será usado para compara a senha inserida no login com o hash armazenado no banco de dados
 }
 
-// Esquema do utilizador
+// Esquema do utilizador (modelo)
 const userSchema = new Schema<IUser>({
   fullName: {
     type: String,
@@ -61,6 +63,7 @@ const userSchema = new Schema<IUser>({
 });
 
 // Função para hash da senha antes de salvar o utilizador no banco de dados
+//pre é um middleware do mongoose
 userSchema.pre('save', async function (next) {
   const user = this as IUser;
 
@@ -70,8 +73,8 @@ userSchema.pre('save', async function (next) {
   }
 
   // Faz hash da senha
-  const salt = await bcrypt.genSalt(10);
-  user.password = await bcrypt.hash(user.password, salt);
+  const salt = await bcrypt.genSalt(10); //gera um valor aleatório (salt)
+  user.password = await bcrypt.hash(user.password, salt); //aplica o hash com o número gerado
   next();
 });
 

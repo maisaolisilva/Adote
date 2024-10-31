@@ -1,6 +1,9 @@
 //API Route lida com a autenticação
+import bcrypt  from 'bcryptjs';
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials'; //permite autenticação personalizada com emais e senha
+import User from '@/models/User';
+import clientPromise from '@/lib/mongodb';
 
 const authOptions = {
     //Lista de provedores de autenticação
@@ -13,10 +16,20 @@ const authOptions = {
       },
       //função que verifica a validação das credenciais
       async authorize(credentials) {
-        // Simulação de validação (substituir por lógica real de autenticação)
-        const user = { id: '1', name: 'John Doe', email: 'john@example.com' };
-        if (credentials?.email === 'john@example.com' && credentials?.password === '1234') {
-          return user;
+        // conecta ao MongoDB usando clientPromise
+        await clientPromise;
+
+        //verifica se as credenciais estão definidas
+        if (!credentials?.password || !credentials.email) {
+          return null;
+        }
+
+         // Busca o utilizador no MongoDB pelo email
+         const user = await User.findOne({ email: credentials?.email });
+         
+         //verifica se o utilizador exixte e se user.password está definido
+         if (user && user.password && await bcrypt.compare(credentials.password, user.password)) {
+          return { id: user._id, name: user.fullName, email: user.email };
         }
         return null; // Autenticação falhou
       },
