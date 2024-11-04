@@ -1,4 +1,5 @@
-//API Route lida com a autenticação
+//API Route que lida com a autenticação
+//arquivos route.ts dentro da pasta api são identificados pelo next.js como rode de API e exporta handlers HTTP
 import bcrypt  from 'bcryptjs';
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials'; //permite autenticação personalizada com emais e senha

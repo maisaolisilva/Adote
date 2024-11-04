@@ -9,8 +9,10 @@ import Titulo from '@/components/Titulo';
 const StyledSection = styled.section`
     display: flex;
     flex-direction: column;
+    justify-content: center;
     gap: 20px;
     width: 100%;
+    max-width: 600px;
     text-align: center;
     input{
         border: 2px solid #789DBC;
@@ -90,7 +92,6 @@ export default function SignInPage() {
             required
           />
         </label>
-        <br />
         <button type="submit">Entrar</button>
       </form>
     </StyledSection>
