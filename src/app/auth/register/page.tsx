@@ -47,6 +47,8 @@ export default function RegisterPage() {
     const [password, setPassword] = useState('');
     const [nome, setNome] = useState('');
     const [endereco, setEndereco] = useState('');
+    const [phone, setPhone] = useState('');
+    const [birthDate, setBirthDate] = useState('');
     const [error, setError] = useState('');
     const router = useRouter();
 
@@ -58,7 +60,7 @@ export default function RegisterPage() {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ email, password, nome, endereco }),
+          body: JSON.stringify({ email, password, nome, endereco, phone, birthDate }),
         });
         const data = await response.json();
         if (response.ok) {
@@ -77,16 +79,16 @@ export default function RegisterPage() {
                 <label>
                     Nome completo:
                     <input
-                        type="email"
+                        type="text"
                         value={nome}
                         onChange={(e) => setNome(e.target.value)}
                         required
                     />
                 </label>
                 <label>
-                    Senha
+                    Senha:
                     <input
-                        type="email"
+                        type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
@@ -104,9 +106,27 @@ export default function RegisterPage() {
                 <label>
                    Endereço:
                     <input
-                        type="email"
-                        value={email}
+                        type="text"
+                        value={endereco}
                         onChange={(e) => setEndereco(e.target.value)}
+                        required
+                    />
+                </label>
+                <label>
+                   Telefone:
+                    <input
+                        type="text"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        required
+                    />
+                </label>
+                <label>
+                   Data de nascimento:
+                    <input
+                        type="date"
+                        value={birthDate}
+                        onChange={(e) => setBirthDate(e.target.value)}
                         required
                     />
                 </label>

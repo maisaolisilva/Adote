@@ -5,6 +5,7 @@ import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials'; //permite autenticação personalizada com emais e senha
 import User from '@/models/User';
 import clientPromise from '@/lib/mongodb';
+import { dbConnect } from '@/lib/mongodb';
 
 const authOptions = {
     //Lista de provedores de autenticação
@@ -17,22 +18,28 @@ const authOptions = {
       },
       //função que verifica a validação das credenciais
       async authorize(credentials) {
-        // conecta ao MongoDB usando clientPromise
-        await clientPromise;
+        await dbConnect();
+       try{ // conecta ao MongoDB usando clientPromise
+          await clientPromise;
 
-        //verifica se as credenciais estão definidas
-        if (!credentials?.password || !credentials.email) {
-          return null;
-        }
+          //verifica se as credenciais estão definidas
+          if (!credentials?.password || !credentials.email) {
+            return null;
+          }
 
-         // Busca o utilizador no MongoDB pelo email
-         const user = await User.findOne({ email: credentials?.email });
-         
-         //verifica se o utilizador exixte e se user.password está definido
-         if (user && user.password && await bcrypt.compare(credentials.password, user.password)) {
-          return { id: user._id, name: user.fullName, email: user.email };
-        }
-        return null; // Autenticação falhou
+          // Busca o utilizador no MongoDB pelo email
+          const user = await User.findOne({ email: credentials?.email });
+
+          
+          //verifica se o utilizador existe e se user.password está definido
+          if (user && user.password && await bcrypt.compare(credentials.password, user.password)) {
+            return { id: user._id, name: user.fullName, email: user.email };
+          }
+          return null; // Autenticação falhou
+      } catch (error) {
+        console.error("erro na função authorize: ",error);
+        return null;
+      }
       },
     }),
   ],

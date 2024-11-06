@@ -1,5 +1,6 @@
 //Mongoose é uma biblioteca para modelar dados no MongoDB usando JavaScript ou TypeScript
 import mongoose, { Schema, model, models } from 'mongoose';
+//Biblioteca de criptografia de senhas
 import bcrypt from 'bcryptjs';
 
 // Interface para tipar o utilizador
@@ -11,7 +12,7 @@ interface IUser extends mongoose.Document {
   password: string;
   birthDate: Date;
   address: string;
-  comparePassword(enteredPassword: string): Promise<boolean>; //mátodo que será usado para compara a senha inserida no login com o hash armazenado no banco de dados
+  comparePassword(enteredPassword: string): Promise<boolean>; //método que será usado para comparar a senha inserida no login com o hash armazenado no banco de dados
 }
 
 // Esquema do utilizador (modelo)
@@ -19,7 +20,7 @@ const userSchema = new Schema<IUser>({
   fullName: {
     type: String,
     required: [true, 'Nome completo é obrigatório'],
-    trim: true,
+    trim: true, //remove espaços em branco extras no início e no final do valor antes de armazená-lo
   },
   email: {
     type: String,

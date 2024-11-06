@@ -84,7 +84,7 @@ export default function SignInPage() {
         </label>
         <br />
         <label>
-          Password:
+          Senha:
           <input
             type="password"
             value={password}

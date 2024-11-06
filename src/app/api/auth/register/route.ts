@@ -11,12 +11,18 @@ export async function POST(request: Request) {
 
   // Obtém os dados do corpo da requisição
   const body = await request.json();
-  const { email, password, nome, endereco } = body;
+  const { email, password, nome, endereco, phone, birthDate } = body;
 
   // Verifica se todos os campos obrigatórios foram preenchidos
-  if (!email || !password || !nome || !endereco) {
+  if (!email || !password || !nome || !endereco || !phone || !birthDate) {
     return NextResponse.json({ message: 'Todos os campos são obrigatórios' }, { status: 400 });
   }
+
+  //Verifica se a senha possui mais que seis caracteres
+  if (password.length < 6) {
+    return NextResponse.json({ message: 'A senha deve ter no mínimo 6 caracteres' }, { status: 400 });
+  }
+  
 
   // Verifica se o email já está registrado
   const existingUser = await db.collection('users').findOne({ email });
@@ -27,12 +33,21 @@ export async function POST(request: Request) {
   // Cria o hash da senha
   const hashedPassword = await bcrypt.hash(password, 10);
 
+  // Verifica a idade do usuário
+  const userBirthDate = new Date(birthDate);
+  const age = new Date().getFullYear() - userBirthDate.getFullYear();
+  if (age < 18) {
+    return NextResponse.json({ message: 'O utilizador deve ter pelo menos 18 anos' }, { status: 400 });
+  }
+
   // Cria um novo utilizador
   const user = new User({
     fullName: nome,
     email,
     password: hashedPassword,
     address: endereco,
+    phone,
+    birthDate: userBirthDate,
   });
 
   // Salva o utilizador no banco de dados
