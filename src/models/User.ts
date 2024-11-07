@@ -6,6 +6,7 @@ import bcrypt from 'bcryptjs';
 // Interface para tipar o utilizador
 //O extends mongoose.Document garante acesso a propriedades e métodos padrão do Mongoose, como _id() e save()
 interface IUser extends mongoose.Document {
+  _id: mongoose.Types.ObjectId; //Pega o id que o mongodb gera automaticamente
   fullName: string;
   email: string;
   phone: string;
@@ -62,6 +63,13 @@ const userSchema = new Schema<IUser>({
     required: [true, 'Endereço é obrigatório'],
   },
 });
+
+userSchema.virtual('id').get(function() {
+  
+  return this._id.toHexString();
+});
+
+userSchema.set('toJSON', { virtuals: true});
 
 // Função para hash da senha antes de salvar o utilizador no banco de dados
 //pre é um middleware do mongoose

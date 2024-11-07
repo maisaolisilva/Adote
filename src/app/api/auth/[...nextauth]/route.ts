@@ -6,6 +6,9 @@ import CredentialsProvider from 'next-auth/providers/credentials'; //permite aut
 import User from '@/models/User';
 import clientPromise from '@/lib/mongodb';
 import { dbConnect } from '@/lib/mongodb';
+import { Session } from 'next-auth';
+import { JWT } from 'next-auth/jwt';
+
 
 const authOptions = {
     //Lista de provedores de autenticação
@@ -30,10 +33,9 @@ const authOptions = {
           // Busca o utilizador no MongoDB pelo email
           const user = await User.findOne({ email: credentials?.email });
 
-          
           //verifica se o utilizador existe e se user.password está definido
           if (user && user.password && await bcrypt.compare(credentials.password, user.password)) {
-            return { id: user._id, name: user.fullName, email: user.email };
+            return { id: user._id.toString(), name: user.fullName, email: user.email };
           }
           return null; // Autenticação falhou
       } catch (error) {
@@ -43,6 +45,21 @@ const authOptions = {
       },
     }),
   ],
+  callbacks: {
+    async session({ session, token }: { session: Session; token: JWT }) {
+      if (token.id) {
+        session.user.id = token.id as string;  // Inclui `id` na sessão
+      }
+      return session;
+    },
+    async jwt({ token, user }: { token: JWT; user?: { id: string } }) {
+      if (user) {
+        token.id = user.id;  // Inclui `id` no token JWT
+      }
+      return token;
+    },
+  },
+  
   pages: {
     signIn: '/auth/signin',  // Página de login personalizada
   },

@@ -3,7 +3,7 @@ import User from '@/models/User'; // Importa o modelo de utilizador
 import clientPromise from '@/lib/mongodb'; // Importa a conexão MongoDB
 import bcrypt from 'bcryptjs';
 
-//requisição do tipo post
+//requisição do tipo post para cadastrar um novo usuário
 export async function POST(request: Request) {
   // Conecta ao MongoDB usando clientPromise
   const client = await clientPromise;
