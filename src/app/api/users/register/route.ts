@@ -11,10 +11,13 @@ export async function POST(request: Request) {
 
   // Obtém os dados do corpo da requisição
   const body = await request.json();
-  const { email, password, nome, endereco, phone, birthDate } = body;
+  const { email, password, nome, endereco, phone, birthDate, profileImageUrl } = body;
+  
+  console.log("Dados recebidos na API de registro:", { email, password, nome, endereco, phone, birthDate, profileImageUrl });
+
 
   // Verifica se todos os campos obrigatórios foram preenchidos
-  if (!email || !password || !nome || !endereco || !phone || !birthDate) {
+  if (!email || !password || !nome || !endereco || !phone || !birthDate || !profileImageUrl) {
     return NextResponse.json({ message: 'Todos os campos são obrigatórios' }, { status: 400 });
   }
 
@@ -48,6 +51,7 @@ export async function POST(request: Request) {
     address: endereco,
     phone,
     birthDate: userBirthDate,
+    profileImageUrl
   });
 
   // Salva o utilizador no banco de dados

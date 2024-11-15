@@ -13,6 +13,7 @@ interface IUser extends mongoose.Document {
   password: string;
   birthDate: Date;
   address: string;
+  profileImageUrl: string;
   comparePassword(enteredPassword: string): Promise<boolean>; //método que será usado para comparar a senha inserida no login com o hash armazenado no banco de dados
 }
 
@@ -61,6 +62,9 @@ const userSchema = new Schema<IUser>({
   address: {
     type: String,
     required: [true, 'Endereço é obrigatório'],
+  },
+  profileImageUrl: {
+    type: String,
   },
 });
 
