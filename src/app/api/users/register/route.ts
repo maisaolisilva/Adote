@@ -5,6 +5,7 @@ import bcrypt from 'bcryptjs';
 
 //requisição do tipo post para cadastrar um novo usuário
 export async function POST(request: Request) {
+  
   // Conecta ao MongoDB usando clientPromise
   const client = await clientPromise;
   const db = client.db();

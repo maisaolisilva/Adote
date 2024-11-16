@@ -144,7 +144,6 @@ export default function RegisterPage() {
                 </label>
                 <label className='uploadImage'>
                     <AvatarUploader onUploadSuccess={(url) => {
-                        console.log("URL recebida do AvatarUploader:", url);
                         setProfileImageUrl(url);
                     }} />
                 </label>

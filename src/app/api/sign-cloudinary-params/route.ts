@@ -6,6 +6,7 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+//endpoint que assina as imagens para o cloudinary
 export async function POST(request: Request) {
   const body = await request.json();
   const { paramsToSign } = body;

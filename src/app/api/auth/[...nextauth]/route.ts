@@ -10,7 +10,7 @@ import { Session } from 'next-auth';
 import { JWT } from 'next-auth/jwt';
 
 
-const authOptions = {
+export const authOptions = {
     //Lista de provedores de autenticação
   providers: [
     CredentialsProvider({
@@ -19,6 +19,7 @@ const authOptions = {
         email: { label: 'Email', type: 'email' },
         password: { label: 'Password', type: 'password' },
       },
+
       //função que verifica a validação das credenciais
       async authorize(credentials) {
         await dbConnect();
@@ -48,7 +49,7 @@ const authOptions = {
   callbacks: {
     async session({ session, token }: { session: Session; token: JWT }) {
       if (token.id) {
-        session.user.id = token.id as string;  // Inclui `id` na sessão
+        session.user.id = token.id as string;  // Inclui `id` na sessão, assim a API que busca os dados pode usar id fornecido na url
       }
       return session;
     },
