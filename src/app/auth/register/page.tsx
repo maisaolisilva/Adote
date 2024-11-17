@@ -74,7 +74,7 @@ export default function RegisterPage() {
 
         const data = await response.json();
         if (response.ok) {
-            // Registro bem-sucedido, redirecionar ou mostrar mensagem
+            // Registro bem-sucedido, redirecionar 
             router.push('/auth/signin'); // Redireciona para a página de login
         } else {
             // Exibe mensagem de erro

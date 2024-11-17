@@ -3,6 +3,46 @@ import Animal from '@/models/Animal';
 import { dbConnect } from '@/lib/mongodb';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import mongoose from 'mongoose';
+
+interface AnimalDocument {
+  _id: mongoose.Types.ObjectId; // Sempre armazenado como ObjectId no MongoDB
+  id?: string; // Transformado para string ao ser retornado
+  user: mongoose.Types.ObjectId;
+  story: string;
+  approximateAge: string;
+  size: string;
+  dewormed: boolean;
+  vaccinated: boolean;
+  behavior: string;
+  contact: string;
+  gender: string;
+  imageUrl: string;
+}
+
+
+//endpoint de busca dos dados de um animal específico
+export async function GET(request: Request, { params }: { params: { id: string } }) {
+  await dbConnect();
+
+  const { id } = params;
+
+  try {
+    const animal = await Animal.findById(new mongoose.Types.ObjectId(id)).lean<AnimalDocument>();
+    if (!animal) {
+      return NextResponse.json({ message: 'Animal não encontrado' }, { status: 404 });
+    }
+
+    return NextResponse.json({
+      ...animal,
+      id: animal._id.toString(), // Converte o ObjectId para string
+      _id: undefined, // Remove o campo original
+    }, { status: 200 });
+  } catch (error) {
+    console.error('Erro ao buscar o animal:', error);
+    return NextResponse.json({ message: 'Erro ao buscar o animal' }, { status: 500 });
+  }
+}
 
 //endpoint de cadastro de animal
 export async function POST(request: Request) {
@@ -16,9 +56,9 @@ export async function POST(request: Request) {
 
   //corpo da requisição
   const body = await request.json();
-  const { imageUrl, story, approximateAge, size, dewormed, vaccinated, gender, behavior, contact } = body;
+  const { imageUrl, type, story, approximateAge, size, dewormed, vaccinated, gender, behavior, contact } = body;
 
-  if (!imageUrl || !story || !approximateAge || !size || !gender || !behavior || !contact) {
+  if (!imageUrl || !story || !type || !approximateAge || !size || !gender || !behavior || !contact) {
     return NextResponse.json({ message: 'Preencha os campos obrigatérios.' }, { status: 400 });
   }
 
@@ -26,6 +66,7 @@ export async function POST(request: Request) {
   try {
     const animal = await Animal.create({
       imageUrl,
+      type,
       story,
       approximateAge,
       size,

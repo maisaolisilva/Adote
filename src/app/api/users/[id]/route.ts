@@ -26,7 +26,16 @@ export async function PUT(request: Request, { params }: { params: { id: string }
   const userData = await request.json();
 
   try {
-    const updatedUser = await User.findByIdAndUpdate(new mongoose.Types.ObjectId(id), userData, { new: true });
+    //desestruturação para separar a url da imagem do resto dos dados, assim a imagem pode ser trabalhada separadamente
+    const { profileImageUrl, ...restUserData } = userData;
+
+    //Atualiza os dados no banco de dados 
+    const updatedUser = await User.findByIdAndUpdate(
+      new mongoose.Types.ObjectId(id), 
+      //atualiza a url apenas se o valor estiver definido, evitando salvar valores nulos ou indefinidos
+      { ...restUserData, ...(profileImageUrl && { profileImageUrl }) },
+      { new: true });
+
     if (!updatedUser) {
       return NextResponse.json({ message: 'Usuário não encontrado.' }, { status: 404 });
     }

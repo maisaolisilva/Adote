@@ -4,11 +4,14 @@ import { useSession } from 'next-auth/react';
 import styled from 'styled-components';
 import { useRouter } from 'next/navigation';
 import Titulo from '@/components/Titulo';
+import Image from 'next/image';
+import { AvatarUploader } from '@/components/AvatarUpload';
 
 const ProfileContainer = styled.section`
   display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     gap: 20px;
     width: 100%;
     max-width: 600px;
@@ -52,6 +55,7 @@ export default function ProfilePage() {
     phone: '',
     address: '',
     password: '',
+    profileImageUrl: '',
   });
 
   // Redireciona se não autenticado
@@ -110,6 +114,20 @@ export default function ProfilePage() {
   return (
     <ProfileContainer>
       <Titulo>Perfil do Usuário</Titulo>
+      {userData.profileImageUrl && (
+        <Image
+          src={userData.profileImageUrl}
+          alt="Foto de Perfil"
+          width={150}
+          height={150}
+          style={{ borderRadius: '50%' }}
+        />
+      )}
+      <AvatarUploader
+        onUploadSuccess={(url) =>
+          setUserData((prev) => ({ ...prev, profileImageUrl: url }))
+        }
+      />
       <form onSubmit={handleSubmit}>
         <label>Nome Completo</label>
         <input

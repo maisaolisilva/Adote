@@ -3,6 +3,7 @@ import mongoose, { Schema, model, models } from "mongoose";
 //Interface para o modelo de Animal
 interface IAnimal extends mongoose.Document {
     imageUrl: string;
+    type: string;
     story: string;
     approximateAge: string;
     size: 'Pequeno' | 'Médio' | 'Grande';
@@ -19,6 +20,10 @@ const animalSchema = new Schema<IAnimal>({
     imageUrl: {
         type: String, 
         required: [true, 'A foto é obrigatória'] 
+    },
+    type: {
+        type: String,
+        required: [ true,  'É obrigatório informar o tipo do animal']
     },
     story: {
         type: String,
