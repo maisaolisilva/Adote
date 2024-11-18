@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
 import { format } from 'date-fns';
+import Titulo from '@/components/Titulo';
 
 const DashboardContainer = styled.section`
   padding: 20px;
@@ -23,9 +24,24 @@ const DashboardContainer = styled.section`
     color: #FFF;
     border-radius: 5px;
     cursor: pointer;
-    &:hover {
-      background-color: #789DBC;
+    &:hover{
+          cursor: pointer;
+          opacity: 0.8;
     }
+  }
+
+  .botao-grande{
+    background-color: #624E88;
+        border: none;
+        padding: 0.5em 2em;
+        border-radius: 20px;
+        font-size: 24px;
+        color: #FEF9F2;
+        margin-top: 20px;
+        &:hover{
+            cursor: pointer;
+            opacity: 0.8;
+        }
   }
 
   ul {
@@ -103,8 +119,8 @@ export default function DashboardPage() {
 
   return (
     <DashboardContainer>
-      <h1>Meu Dashboard</h1>
-      <button onClick={() => router.push('/dashboard/new')}>Cadastrar Novo Animal</button>
+      <Titulo>Meu Dashboard</Titulo>
+      <button className= 'botao-grande' onClick={() => router.push('/dashboard/new')}>Cadastrar Novo Animal</button>
       <ul>
         {animals.map((animal) => (
           <li key={animal.id}>

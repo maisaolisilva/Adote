@@ -13,7 +13,7 @@ interface AvatarUploaderProps {
 }
 
 export function AvatarUploader({ onUploadSuccess }: AvatarUploaderProps) {
-  const [loading, setLoading] = useState(false);
+  
 
   const handleUpload = async (open: Function) => {
     //parâmetros que o cloudinary exige para o upload de imagem
@@ -41,7 +41,6 @@ export function AvatarUploader({ onUploadSuccess }: AvatarUploaderProps) {
       timestamp,
     };
 
-    setLoading(true);
     open(widgetOptions);
   };
 
@@ -52,7 +51,6 @@ export function AvatarUploader({ onUploadSuccess }: AvatarUploaderProps) {
         if (typeof result.info === 'object' && 'secure_url' in result.info) {
           onUploadSuccess(result.info.secure_url);
         }
-        setLoading(false);
       }}
       options={{
         singleUploadAutoClose: true,
@@ -62,9 +60,9 @@ export function AvatarUploader({ onUploadSuccess }: AvatarUploaderProps) {
         <StyledBotaoUpload
           type="button"
           onClick={() => handleUpload(open)}
-          disabled={loading}
+          
         >
-          {loading ? 'Uploading...' : 'Upload Foto de Perfil'}
+          Carregar Foto
         </StyledBotaoUpload>
       )}
     </CldUploadWidget>
