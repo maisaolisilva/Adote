@@ -13,6 +13,7 @@ interface IAnimal extends mongoose.Document {
     behavior: string;
     contact: string;
     user: mongoose.Types.ObjectId;
+    postdAt: Date;
 }
 
 //Modelo Animal
@@ -61,6 +62,10 @@ const animalSchema = new Schema<IAnimal>({
         type: Schema.Types.ObjectId,
         ref: 'User',
         required: true
+    },
+    postdAt: {
+        type: Date,
+        default: Date.now //salva a data do momento da postagem
     }
 }, {
     timestamps: true, // Adiciona createdAt e updatedAt automaticamente

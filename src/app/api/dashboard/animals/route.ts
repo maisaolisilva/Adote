@@ -24,6 +24,7 @@ export async function GET(request: Request) {
       ...animal,
       id: animal._id?.toString(), // Converte o ObjectId para string
       _id: undefined, // Remove o campo original para evitar duplicidade
+      postedAt: animal.postdAt,
     }));
 
     return NextResponse.json(formattedAnimals, { status: 200 });

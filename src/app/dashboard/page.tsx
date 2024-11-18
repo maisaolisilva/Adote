@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
+import { format } from 'date-fns';
 
 const DashboardContainer = styled.section`
   padding: 20px;
@@ -64,6 +65,7 @@ interface Animal {
   behavior: string;
   contact: string;
   type: string;
+  postedAt: Date;
 }
 
 export default function DashboardPage() {
@@ -116,6 +118,7 @@ export default function DashboardPage() {
             <p>Vermifugado: {animal.dewormed ? 'Sim' : 'Não'}</p>
             <p>Comportamento: {animal.behavior}</p>
             <p>Contato: {animal.contact}</p>
+            <p>Postado em: {format(new Date(animal.postedAt), 'dd/MM/yyyy')}</p>
             <button onClick={() => router.push(`/dashboard/edit/${animal.id}`)}>Editar</button>
             <button onClick={() => handleDelete(animal.id)}>Excluir</button>
           </li>
