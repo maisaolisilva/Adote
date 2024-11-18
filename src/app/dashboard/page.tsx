@@ -63,6 +63,7 @@ interface Animal {
   dewormed: boolean;
   behavior: string;
   contact: string;
+  type: string;
 }
 
 export default function DashboardPage() {
@@ -106,11 +107,13 @@ export default function DashboardPage() {
         {animals.map((animal) => (
           <li key={animal.id}>
             <img src={animal.imageUrl} alt="Imagem do animal" />
+            <p>Tipo: {animal.type}</p>
             <p>História: {animal.story}</p>
             <p>Idade Aproximada: {animal.approximateAge}</p>
             <p>Gênero: {animal.gender}</p>
             <p>Porte: {animal.size}</p>
             <p>Vacinado: {animal.vaccinated ? 'Sim' : 'Não'}</p>
+            <p>Vermifugado: {animal.dewormed ? 'Sim' : 'Não'}</p>
             <p>Comportamento: {animal.behavior}</p>
             <p>Contato: {animal.contact}</p>
             <button onClick={() => router.push(`/dashboard/edit/${animal.id}`)}>Editar</button>

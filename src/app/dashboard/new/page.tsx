@@ -6,42 +6,65 @@ import Titulo from '@/components/Titulo';
 import { AvatarUploader } from '@/components/AvatarUpload'; // Componente para upload da imagem
 
 const StyledSection = styled.section`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 30px;
-  width: 100%;
-  max-width: 600px;
-  text-align: center;
-
-  input, select {
-    border: 2px solid #789DBC;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 30px;
     width: 100%;
-    height: 30px;
-    margin: 2px 0 10px 0;
-    border-radius: 20px;
+    max-width: 600px;
     text-align: center;
-    font-size: 16px;
-  }
-
-  label {
-    font-size: 24px;
-    color: #624E88;
-  }
-
-  button {
-    background-color: #624E88;
-    border: none;
-    padding: 0.5em 2em;
-    border-radius: 20px;
-    font-size: 24px;
-    color: #FEF9F2;
-    margin-top: 20px;
-    &:hover {
-      cursor: pointer;
-      opacity: 0.8;
+    margin: 20px 0;
+    input{
+        border: 2px solid #789DBC;
+        width: 100%;
+        height: 30px;
+        margin: 2px 0 10px 0;
+        border-radius: 20px;
+        text-align: center;
+        font-size: 16px;
     }
-  }
+
+    label{
+        font-size: 24px;
+        color: #624E88;
+    }
+    button{
+        background-color: #624E88;
+        border: none;
+        padding: 0.5em 2em;
+        border-radius: 20px;
+        font-size: 24px;
+        color: #FEF9F2;
+        margin-top: 20px;
+        &:hover{
+            cursor: pointer;
+            opacity: 0.8;
+        }
+    }
+    .uploadImage{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        margin-top: 10px;
+    }
+    .select {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      margin: 20px 0;
+      select{
+        border: 2px solid #624E88;
+        border-radius: 20px;
+        width: 100px;
+        color: #624E88;
+        font-size: 16px;
+        padding: 3px;
+        margin-left: 5px;
+      }
+    }
 `;
 
 export default function NewAnimalPage() {
@@ -54,11 +77,13 @@ export default function NewAnimalPage() {
   const [gender, setGender] = useState('Fêmea'); 
   const [behavior, setBehavior] = useState('');
   const [contact, setContact] = useState('');
+  const [type, setType] = useState('');
   const [error, setError] = useState('');
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    
     try {
       const response = await fetch('/api/animals', {
         method: 'POST',
@@ -73,6 +98,7 @@ export default function NewAnimalPage() {
           gender,
           behavior,
           contact,
+          type
         }),
       });
 
@@ -95,6 +121,15 @@ export default function NewAnimalPage() {
       {error && <p style={{ color: 'red' }}>{error}</p>}
       <form onSubmit={handleSubmit}>
         <label>
+          Tipo do animal:
+          <input
+            type="text"
+            value={type}
+            onChange={(e) => setType(e.target.value)}
+            required
+          />
+        </label>
+        <label>
           História do animal:
           <input
             type="text"
@@ -112,35 +147,37 @@ export default function NewAnimalPage() {
             required
           />
         </label>
-        <label>
-          Porte:
-          <select value={size} onChange={(e) => setSize(e.target.value)}>
-            <option value="Pequeno">Pequeno</option>
-            <option value="Médio">Médio</option>
-            <option value="Grande">Grande</option>
-          </select>
-        </label>
-        <label>
-          Vermifugado:
-          <select value={dewormed.toString()} onChange={(e) => setDewormed(e.target.value === 'true')}>
-            <option value="true">Sim</option>
-            <option value="false">Não</option>
-          </select>
-        </label>
-        <label>
-          Vacinado:
-          <select value={vaccinated.toString()} onChange={(e) => setVaccinated(e.target.value === 'true')}>
-            <option value="true">Sim</option>
-            <option value="false">Não</option>
-          </select>
-        </label>
-        <label>
-          Gênero:
-          <select value={gender} onChange={(e) => setGender(e.target.value)}>
-            <option value="Fêmea">Fêmea</option>
-            <option value="Macho">Macho</option>
-          </select>
-        </label>
+        <div className="select">
+          <label>
+            Porte:
+            <select value={size} onChange={(e) => setSize(e.target.value)}>
+              <option value="Pequeno">Pequeno</option>
+              <option value="Médio">Médio</option>
+              <option value="Grande">Grande</option>
+            </select>
+          </label>
+          <label>
+            Vermifugado:
+            <select value={dewormed.toString()} onChange={(e) => setDewormed(e.target.value === 'true')}>
+              <option value="true">Sim</option>
+              <option value="false">Não</option>
+            </select>
+          </label>
+          <label>
+            Vacinado:
+            <select value={vaccinated.toString()} onChange={(e) => setVaccinated(e.target.value === 'true')}>
+              <option value="true">Sim</option>
+              <option value="false">Não</option>
+            </select>
+          </label>
+          <label>
+            Gênero:
+            <select value={gender} onChange={(e) => setGender(e.target.value)}>
+              <option value="Fêmea">Fêmea</option>
+              <option value="Macho">Macho</option>
+            </select>
+          </label>
+        </div>
         <label>
           Comportamento:
           <input
@@ -160,7 +197,6 @@ export default function NewAnimalPage() {
           />
         </label>
         <label className="uploadImage">
-          <div>Foto do Animal:</div>
           <AvatarUploader onUploadSuccess={setImageUrl} />
         </label>
         <button type="submit">Registrar</button>

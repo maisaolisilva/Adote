@@ -12,12 +12,12 @@ const ProfileContainer = styled.section`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 30px;
     width: 100%;
     max-width: 600px;
     text-align: center;
     input{
-        border: 2px solid #789DBC;
+        border: 2px solid #624E88;
         width: 100%;
         height: 30px;
         margin: 2px 0;
