@@ -8,7 +8,7 @@ import Image from 'next/image';
 import { AvatarUploader } from '@/components/AvatarUpload';
 
 const ProfileContainer = styled.section`
-  display: flex;
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -16,6 +16,7 @@ const ProfileContainer = styled.section`
     width: 100%;
     max-width: 600px;
     text-align: center;
+    margin: 20px 0;
     input{
         border: 2px solid #624E88;
         width: 100%;
@@ -43,6 +44,12 @@ const ProfileContainer = styled.section`
             cursor: pointer;
             opacity: 0.8;
         }
+    }
+
+    .cabecalho{
+      width: 100%;
+      display: flex;
+      justify-content: left;
     }
 `;
 

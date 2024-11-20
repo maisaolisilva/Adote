@@ -25,6 +25,11 @@ export async function GET(request: Request, { params }: { params: { id: string }
     await dbConnect();
   
     const { id } = params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return NextResponse.json({ message: 'ID inválido.' }, { status: 400 });
+    }
+    
   
     try {
       const animal = await Animal.findById(new mongoose.Types.ObjectId(id)).lean<AnimalDocument>();
@@ -55,6 +60,11 @@ export async function DELETE(request: Request, { params }: { params: {id: string
     
     //pega o id da url fornecida
     const { id } = params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return NextResponse.json({ message: 'ID inválido.' }, { status: 400 });
+    }
+    
   
     //tenta buscar o animal no mongodb e lê seus dados
     try {

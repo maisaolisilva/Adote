@@ -8,14 +8,8 @@ import Titulo from '@/components/Titulo';
 
 const DashboardContainer = styled.section`
   padding: 20px;
-  max-width: 800px;
-  margin: auto;
+  max-width: 100%;
   text-align: center;
-
-  h1 {
-    color: #624E88;
-  }
-
   button {
     margin: 10px;
     padding: 10px 20px;
@@ -31,7 +25,7 @@ const DashboardContainer = styled.section`
   }
 
   .botao-grande{
-    background-color: #624E88;
+        background-color: #624E88;
         border: none;
         padding: 0.5em 2em;
         border-radius: 20px;
@@ -51,9 +45,13 @@ const DashboardContainer = styled.section`
     li {
       margin: 20px 0;
       padding: 10px;
-      border: 1px solid #ccc;
+      border: 1px solid #624E88;
       border-radius: 5px;
       text-align: left;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
 
       img {
         width: 100px;
@@ -69,7 +67,7 @@ const DashboardContainer = styled.section`
   }
 `;
 
-interface Animal {
+interface IAnimal {
   id: string;
   imageUrl: string;
   story: string;
@@ -81,11 +79,11 @@ interface Animal {
   behavior: string;
   contact: string;
   type: string;
-  postedAt: Date;
+  postdAt: Date;
 }
 
 export default function DashboardPage() {
-  const [animals, setAnimals] = useState<Animal[]>([]);
+  const [animals, setAnimals] = useState<IAnimal[]>([]);
   const router = useRouter();
 
   //acessa a api para buscar todops os animais que um usuário cadastrou
@@ -125,18 +123,22 @@ export default function DashboardPage() {
         {animals.map((animal) => (
           <li key={animal.id}>
             <img src={animal.imageUrl} alt="Imagem do animal" />
-            <p>Tipo: {animal.type}</p>
-            <p>História: {animal.story}</p>
-            <p>Idade Aproximada: {animal.approximateAge}</p>
-            <p>Gênero: {animal.gender}</p>
-            <p>Porte: {animal.size}</p>
-            <p>Vacinado: {animal.vaccinated ? 'Sim' : 'Não'}</p>
-            <p>Vermifugado: {animal.dewormed ? 'Sim' : 'Não'}</p>
-            <p>Comportamento: {animal.behavior}</p>
-            <p>Contato: {animal.contact}</p>
-            <p>Postado em: {format(new Date(animal.postedAt), 'dd/MM/yyyy')}</p>
-            <button onClick={() => router.push(`/dashboard/edit/${animal.id}`)}>Editar</button>
-            <button onClick={() => handleDelete(animal.id)}>Excluir</button>
+            <div className="descricao">
+              <p>Tipo: {animal.type}</p>
+              <p>História: {animal.story}</p>
+              <p>Idade Aproximada: {animal.approximateAge}</p>
+              <p>Gênero: {animal.gender}</p>
+              <p>Porte: {animal.size}</p>
+              <p>Vacinado: {animal.vaccinated ? 'Sim' : 'Não'}</p>
+              <p>Vermifugado: {animal.dewormed ? 'Sim' : 'Não'}</p>
+              <p>Comportamento: {animal.behavior}</p>
+              <p>Contato: {animal.contact}</p>
+              <p>Postado em: {format(new Date(animal.postdAt), 'dd/MM/yyyy')}</p>
+            </div>
+            <div className="botoes">
+              <button onClick={() => router.push(`/dashboard/edit/${animal.id}`)}>Editar</button>
+              <button onClick={() => handleDelete(animal.id)}>Excluir</button>
+            </div>
           </li>
         ))}
       </ul>
