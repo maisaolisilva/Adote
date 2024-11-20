@@ -76,7 +76,7 @@ export default function Home() {
 
   return (
     <HomeContainer>
-      <Titulo>Últimos animais cadastrados: </Titulo>
+      <Titulo>Animais cadastrados: </Titulo>
         <ul>
         {animals.map((animal) => (
           <li key={animal._id.toString()}>
