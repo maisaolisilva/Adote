@@ -6,17 +6,18 @@ import { useRouter } from 'next/navigation';
 import Titulo from '@/components/Titulo';
 import Image from 'next/image';
 import { AvatarUploader } from '@/components/AvatarUpload';
+import { signOut } from 'next-auth/react';
 
 const ProfileContainer = styled.section`
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 30px;
+    gap: 20pxpx;
     width: 100%;
     max-width: 600px;
     text-align: center;
-    margin: 20px 0;
+    margin: 20px 0 5px 0;
     input{
         border: 2px solid #624E88;
         width: 100%;
@@ -44,12 +45,6 @@ const ProfileContainer = styled.section`
             cursor: pointer;
             opacity: 0.8;
         }
-    }
-
-    .cabecalho{
-      width: 100%;
-      display: flex;
-      justify-content: left;
     }
 `;
 
@@ -118,6 +113,11 @@ export default function ProfilePage() {
     }
   };
 
+  //Função para o usuário sair (encerrar uma sessão)
+  const handleSignOut = async () => {
+    await signOut();
+    window.location.href = '/';
+  }
   return (
     <ProfileContainer>
       <Titulo>Perfil do Usuário</Titulo>
@@ -167,6 +167,7 @@ export default function ProfilePage() {
         />
         <button type="submit">Salvar Alterações</button>
       </form>
+      <button type="button" onClick={handleSignOut}>Sair</button>
     </ProfileContainer>
   );
 }
