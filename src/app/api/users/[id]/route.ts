@@ -8,14 +8,21 @@ export async function GET(request: Request, { params }: { params: { id: string }
   await dbConnect();
   const { id } = params;
 
+ 
+  // Validação do ID
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return NextResponse.json({ message: 'ID inválido.' }, { status: 400 });
+  }
+
   try {
-    const user = await User.findById(id).lean();
+    const user = await User.findById(new mongoose.Types.ObjectId(id)).lean();
     if (!user) {
       return NextResponse.json({ message: 'Usuário não encontrado.' }, { status: 404 });
     }
     return NextResponse.json(user, { status: 200 });
   } catch (error) {
-      return NextResponse.json({ message: 'Erro ao buscar usuário.' }, { status: 500 });
+    console.error('Erro ao buscar usuário:', error);
+    return NextResponse.json({ message: 'Erro ao buscar usuário.' }, { status: 500 });
   }
 }
 

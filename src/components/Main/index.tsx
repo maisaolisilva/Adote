@@ -8,7 +8,7 @@ interface MainProps {
 }
 
 const StyledContainer = styled.section`
-    margin: 0 10px;
+    margin: 45px 10px;
     height: 100%;
     display: flex;
     flex-direction: column;

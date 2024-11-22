@@ -6,7 +6,8 @@ import Link from "next/link";
 import BotaoHome from "@/components/BotaoHome";
 
 const StyledSection = styled.header`
-    margin-top: 5px;
+  position: absolute;
+    top: 5px;
     width: 100%;
     display: flex;
     justify-content: space-between;
