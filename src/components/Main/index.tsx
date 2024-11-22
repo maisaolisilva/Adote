@@ -13,7 +13,7 @@ const StyledContainer = styled.section`
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
+    width: 100vh;
 `
 
 export default function Main({ children }: MainProps) {

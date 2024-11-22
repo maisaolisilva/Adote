@@ -12,6 +12,7 @@ import { IUser } from "@/app/interfaces/IUser";
 const AnimalContainer = styled.section`
     margin-top: 10px;
     height: 100%;
+    width: 100%;
     font-size: 24px;
     display: flex;
     flex-direction: column;
@@ -88,7 +89,7 @@ return (
                 <Image src={animal.imageUrl} alt="Imagem do animal" width={300} height={300} />
                 <div className="detalhes">
                     <p>Tipo: {animal.type}</p>
-                    <p>História: {animal.story}</p>
+                    <p>História: {animal.story} </p>
                     <p>Idade Aproximada: {animal.approximateAge}</p>
                     <p>Gênero: {animal.gender}</p>
                     <p>Porte: {animal.size}</p>

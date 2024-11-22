@@ -2,8 +2,8 @@ import { NextResponse } from 'next/server';
 import Animal from '@/models/Animal';
 import { dbConnect } from '@/lib/mongodb';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import mongoose from 'mongoose';
+import { authOptions } from '@/lib/authConfig';
 
 interface AnimalDocument {
     _id: mongoose.Types.ObjectId; // Sempre armazenado como ObjectId no MongoDB
