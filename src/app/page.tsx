@@ -8,7 +8,6 @@ import Image from "next/image";
 import { IAnimal } from "./interfaces/IAnimal";
 import Link from "next/link";
 
-
 const HomeContainer = styled.section`
   margin: 20px 10px ;
   width: 100%;
@@ -21,6 +20,8 @@ const HomeContainer = styled.section`
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+    align-items: center;
+    justify-content: space-evenly;
     li{
       list-style: none;
       border: solid 2px #624E88;
@@ -46,8 +47,6 @@ const HomeContainer = styled.section`
     }
   
 `
-
-
 
 export default function Home() {
   const [animals, setAnimals] = useState<IAnimal[]>([]);
