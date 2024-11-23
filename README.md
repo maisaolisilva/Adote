@@ -81,3 +81,52 @@ CLOUDINARY_API_SECRET=minha_chave_secreta
 NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=meu_cloudinary
 NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET=ml_default
 
+# Arquitetura da Aplicação Adote
+
+```plaintext
+Adote Application
+├── Front-end
+│   ├── Framework: Next.js
+│   │   ├── Páginas (Pages)
+│   │   │   ├── Home
+│   │   │   ├── Registro
+│   │   │   ├── Dashboard
+│   │   │   └── Detalhes do Animal
+│   │   ├── Componentes
+│   │   │   ├── Header
+│   │   │   ├── Footer
+│   │   │   ├── Cards de Animais
+│   │   │   └── Formulários
+│   │   └── Estilização: Styled Components
+│   └── Gerenciamento de Estado: Next.js API Routes e React Context
+│
+├── Back-end
+│   ├── API
+│   │   ├── Autenticação
+│   │   │   └── NextAuth (Com suporte ao MongoDB)
+│   │   ├── Upload de Imagens
+│   │   │   └── Cloudinary
+│   │   ├── Gerenciamento de Animais
+│   │   │   ├── CRUD (Create, Read, Update, Delete)
+│   │   │   └── Integração com MongoDB
+│   │   └── Rota de Dashboard
+│   └── Banco de Dados
+│       ├── MongoDB
+│       └── Mongoose para ODM
+│
+├── Deploy
+│   ├── Plataforma: Vercel
+│   └── Configurações:
+│       ├── Variáveis de Ambiente
+│       ├── Configuração de Build Automático
+│       └── URL de Produção: https://adote-[random_id].vercel.app
+│
+├── Integrações Externas
+│   ├── Cloudinary
+│   │   ├── Upload de Imagens
+│   │   └── Gerenciamento de Recursos
+│   └── Serviços de Autenticação via NextAuth
+│
+└── Testes
+    └── Testes Manuais: Inspeção visual em ambientes de desenvolvimento e produção
+
