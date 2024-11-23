@@ -149,7 +149,7 @@ Adote Application
 └── Testes
     └── Testes Manuais: Inspeção visual em ambientes de desenvolvimento e produção
 
-
+---
 
 ## 📂 **Como Executar Localmente**
 
