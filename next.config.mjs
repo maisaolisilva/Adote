@@ -8,6 +8,10 @@ const nextConfig = {
           },
         ],
       },
+      compiler: {
+        // Ativa suporte nativo a styled-components
+        styledComponents: true,
+      },
 };
 
 export default nextConfig;
