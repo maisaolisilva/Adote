@@ -17,15 +17,10 @@ const HomeContainer = styled.section`
   justify-content: center;
   align-items: center;
   gap: 20px;
-  .botoes{
-    
-  }
   ul{
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
+    gap: 10px;
     li{
       list-style: none;
       border: solid 2px #624E88;
