@@ -65,6 +65,7 @@ Para que a aplicação funcione corretamente, é necessário configurar as segui
 | `CLOUDINARY_API_SECRET`      | Chave secreta da API do Cloudinary.                                                          | `sua_chave_secreta`             |
 | `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME` | Nome da conta no Cloudinary. Configuração para ser usada no front-end.                     | `seu_nome_no_cloudinary`        |
 | `NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET` | Preset de upload configurado no Cloudinary para realizar envios de arquivos.             | `ml_default`                    |
+| `NEXT_PUBLIC_CLOUDINARY_API_KEY` | **(Requerido para produção)** Chave pública da API do Cloudinary, usada para integrar corretamente no ambiente de produção. | `sua_chave_api`                 |
 
 ### Criando o Arquivo `.env.local`
 1. Crie o arquivo `.env.local` na raiz do projeto.
