@@ -77,7 +77,7 @@ export default function Home() {
   
     fetchAnimals(); // Busca inicial
   
-    const interval = setInterval(fetchAnimals, 30000);
+    const interval = setInterval(fetchAnimals, 10000);
   
     return () => clearInterval(interval);
   }, []);
