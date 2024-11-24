@@ -55,18 +55,33 @@ export default function Home() {
   //acessa a API da home para exibis os animais cadastrados
   useEffect(() => {
     const fetchAnimals = async () => {
-      const response = await fetch('/api/animals');
-      const data = await response.json();
-      setAnimals(data);
+      try {
+        const response = await fetch('/api/home', {
+          headers: {
+            'Cache-Control': 'no-store',
+          },
+        });
+  
+        // Verifica se a resposta foi bem-sucedida
+        if (!response.ok) {
+          throw new Error(`Erro na API: ${response.statusText}`);
+        }
+  
+        // Verifica se a resposta tem conteúdo antes de tentar transformá-la em JSON
+        const data = await response.json();
+        setAnimals(data);
+      } catch (error) {
+        console.error('Erro ao buscar animais:', error);
+      }
     };
-
+  
     fetchAnimals(); // Busca inicial
-
-    const interval = setInterval(fetchAnimals, 10000); // Atualiza a cada 10 segundos
-
-    return () => clearInterval(interval); // Limpa o intervalo ao desmontar o componente
+  
+    const interval = setInterval(fetchAnimals, 30000);
+  
+    return () => clearInterval(interval);
   }, []);
-
+  
 
   return (
     <HomeContainer>
