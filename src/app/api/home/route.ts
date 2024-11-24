@@ -10,9 +10,7 @@ export async function GET(request: Request) {
         const  animals = await Animal.find()
         return NextResponse.json(
                 animals,
-                { status: 200,
-                headers: {'Cache-Control': 'no-store'}
-                })
+                { status: 200, })
     } catch (error) {
         console.error('Erro ao buscar animais: ', error)
         return NextResponse.json({ message: 'Erro ao buscar animais.' }, { status: 500 })

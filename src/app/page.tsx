@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { IAnimal } from "./interfaces/IAnimal";
 import Link from "next/link";
+import useSWR from 'swr';
 
 const HomeContainer = styled.section`
   margin: 20px 10px ;
@@ -49,45 +50,25 @@ const HomeContainer = styled.section`
 `
 
 export default function Home() {
-  const [animals, setAnimals] = useState<IAnimal[]>([]);
+  //const [animals, setAnimals] = useState<IAnimal[]>([]);
   const router = useRouter();
 
+  // função fetcher para usar o SWR:
+  const fetcher = (url: string) => fetch(url).then((res) => res.json());
+
   //acessa a API da home para exibis os animais cadastrados
-  useEffect(() => {
-    const fetchAnimals = async () => {
-      try {
-        const response = await fetch('/api/home', {
-          headers: {
-            'Cache-Control': 'no-store',
-          },
-        });
+  const { data: animals, error, isLoading} = useSWR<IAnimal[]>('/api/home', fetcher, {
+    refreshInterval: 10000, // Atualiza a cada 10 segundos
+  })
   
-        // Verifica se a resposta foi bem-sucedida
-        if (!response.ok) {
-          throw new Error(`Erro na API: ${response.statusText}`);
-        }
-  
-        // Verifica se a resposta tem conteúdo antes de tentar transformá-la em JSON
-        const data = await response.json();
-        setAnimals(data);
-      } catch (error) {
-        console.error('Erro ao buscar animais:', error);
-      }
-    };
-  
-    fetchAnimals(); // Busca inicial
-  
-    const interval = setInterval(fetchAnimals, 10000);
-  
-    return () => clearInterval(interval);
-  }, []);
-  
+  if (error) return <div>Erro ao carregar os dados.</div>;
+  if (isLoading) return <div>Carregando...</div>;
 
   return (
     <HomeContainer>
       <Titulo>Animais cadastrados: </Titulo>
         <ul>
-        {animals.map((animal) => (
+        {animals?.map((animal) => (
           <li key={animal._id.toString()}>
             <Image src={animal.imageUrl} alt="Imagem do animal" width={250} height={250} style={{ borderRadius: '20%' }}/>
             <div>
