@@ -73,13 +73,13 @@ export default function Home() {
       <Titulo>Animais cadastrados: </Titulo>
         { animals? (<ul>
         {animals?.map((animal) => (
-          <li key={animal.id}>
+          <li key={animal._id.toString()}>
             <Image src={animal.imageUrl} alt="Imagem do animal" width={250} height={250} style={{ borderRadius: '20%' }}/>
             <div>
               <p>Tipo: {animal.type}</p>
               <p>História: {animal.story}</p>
             </div>
-            <Link href={`/animal/${animal.id}`}>
+            <Link href={`/animal/${animal._id.toString()}`}>
               Conferir Detalhes
             </Link>
           </li>

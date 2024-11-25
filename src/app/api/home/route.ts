@@ -9,9 +9,7 @@ export async function GET(request: Request) {
     try {
         const  animals = await Animal.find()
         return NextResponse.json(
-                animals.map(animal =>({ ...animal, 
-                    id: animal._id.toString(), 
-                    _id: undefined})),
+                animals,
                 { status: 200, })
     } catch (error) {
         console.error('Erro ao buscar animais: ', error)
