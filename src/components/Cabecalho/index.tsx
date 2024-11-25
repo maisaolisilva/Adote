@@ -37,12 +37,6 @@ export default function Cabecalho() {
     const { data: session, status } = useSession();
     const [isSessionUpdated, setIsSessionUpdated] = useState(false);
 
-    useEffect(() => {
-      if (session) {
-        setIsSessionUpdated(true);
-      }
-    }, [session]);
-
     if (status === "loading") {
       return <p>Carregando...</p>;
     }
