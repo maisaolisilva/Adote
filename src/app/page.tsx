@@ -51,7 +51,6 @@ const HomeContainer = styled.section`
 
 export default function Home() {
   const { animals, setAnimals } = useAnimals();
-  const {data: session, status} = useSession();
   const router = useRouter();
 
   // Busca os animais da API para exibição inicial
@@ -66,7 +65,7 @@ export default function Home() {
       }
     }
     fetchAnimals();
-  }, [status,setAnimals]);
+  }, [setAnimals]);
   
   return (
     <HomeContainer>
