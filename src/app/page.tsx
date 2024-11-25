@@ -59,6 +59,7 @@ export default function Home() {
       const response = await fetch('/api/home');
       if (response.ok) {
         const data = await response.json();
+
         setAnimals(data); // Atualiza o estado global com os dados da API
       } else {
         console.error('Erro ao buscar os animais');
@@ -70,8 +71,9 @@ export default function Home() {
   return (
     <HomeContainer>
       <Titulo>Animais cadastrados: </Titulo>
-        { animals? (<ul>
-        {animals?.map((animal) => (
+      {animals && animals.length > 0 ? (
+      <ul>
+        {animals.map((animal) => (
           <li key={animal._id.toString()}>
             <Image src={animal.imageUrl} alt="Imagem do animal" width={250} height={250} style={{ borderRadius: '20%' }}/>
             <div>
@@ -83,7 +85,13 @@ export default function Home() {
             </Link>
           </li>
         ))}
-        </ul>) : (<p>Carregando...</p>)}
+      </ul>
+    ) : (
+      <p>Carregando animais...</p>
+    )}
     </HomeContainer>
   );
 }
+
+
+            

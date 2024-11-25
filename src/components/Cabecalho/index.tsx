@@ -35,7 +35,6 @@ const StyledSection = styled.header`
 
 export default function Cabecalho() {
     const { data: session, status } = useSession();
-    const [isSessionUpdated, setIsSessionUpdated] = useState(false);
 
     if (status === "loading") {
       return <p>Carregando...</p>;
