@@ -2,6 +2,7 @@
 
 import styled from "styled-components";
 import { useSession } from "next-auth/react";
+import { useEffect, useState } from 'react';
 import Link from "next/link";
 import BotaoHome from "@/components/BotaoHome";
 
@@ -34,6 +35,17 @@ const StyledSection = styled.header`
 
 export default function Cabecalho() {
     const { data: session, status } = useSession();
+    const [isSessionUpdated, setIsSessionUpdated] = useState(false);
+
+    useEffect(() => {
+      if (session) {
+        setIsSessionUpdated(true);
+      }
+    }, [session]);
+
+    if (status === "loading") {
+      return <p>Carregando...</p>;
+    }
 
     return(
         <StyledSection>

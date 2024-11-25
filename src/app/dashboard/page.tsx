@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
 import { format } from 'date-fns';
 import Titulo from '@/components/Titulo';
+import { useAnimals } from '@/components/AnimalContext';
 
 const DashboardContainer = styled.section`
   padding: 20px;
@@ -67,23 +68,9 @@ const DashboardContainer = styled.section`
   }
 `;
 
-interface IAnimal {
-  id: string;
-  imageUrl: string;
-  story: string;
-  approximateAge: string;
-  gender: string;
-  size: string;
-  vaccinated: boolean;
-  dewormed: boolean;
-  behavior: string;
-  contact: string;
-  type: string;
-  postdAt: Date;
-}
 
 export default function DashboardPage() {
-  const [animals, setAnimals] = useState<IAnimal[]>([]);
+  const { animals, setAnimals } = useAnimals();
   const router = useRouter();
 
   //acessa a api para buscar todops os animais que um usuário cadastrou
@@ -100,7 +87,7 @@ export default function DashboardPage() {
     fetchUserAnimals();
   }, []);
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (id: string | undefined) => {
     const confirm = window.confirm('Tem certeza que deseja excluir este animal?');
     if (confirm) {
       const response = await fetch(`/api/animals/${id}`, {

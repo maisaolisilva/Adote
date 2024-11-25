@@ -2,8 +2,9 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import SessionProviderWrapper from '@/components/SessionProviderWrapper';  // Importa o wrapper
+import SessionProviderWrapper from '@/components/SessionProviderWrapper'; 
 import Main from "@/components/Main";
+import { AnimalsProvider } from "@/components/AnimalContext";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -32,9 +33,11 @@ export default function RootLayout({
     <html lang="pt-br">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <SessionProviderWrapper>
-         <Main>
-            {children}
-         </Main>
+          <AnimalsProvider>
+            <Main>
+                {children}
+            </Main>
+          </AnimalsProvider>
         </SessionProviderWrapper>
       </body>
     </html>
