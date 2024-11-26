@@ -1,23 +1,22 @@
 'use client'
 
 import { IAnimal } from '@/app/interfaces/IAnimal';
-import { useSession } from 'next-auth/react';
-import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
+import { Action, animalsReducer } from '@/app/reduces/animalsReducer';
+import React, { createContext, useReducer, useContext, ReactNode } from 'react';
 
 interface AnimalsContextData {
-    animals: IAnimal[];
-    setAnimals: React.Dispatch<React.SetStateAction<IAnimal[]>>;
+    state: IAnimal[];
+    dispatch: React.Dispatch<Action>;
 }
 
 const AnimalContext = createContext<AnimalsContextData | undefined>(undefined);
 
 //Provedor
  export const AnimalsProvider = ({ children }: { children: ReactNode}) => {
-    const [animals, setAnimals] = useState<IAnimal[]>([]);
-    const {data: session, status} = useSession();
+    const [state, dispatch] = useReducer(animalsReducer,[]);
 
     return (
-        <AnimalContext.Provider value={{ animals, setAnimals }}>
+        <AnimalContext.Provider value={{ state, dispatch }}>
             { children }
         </AnimalContext.Provider>
     )

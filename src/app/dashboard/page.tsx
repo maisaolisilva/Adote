@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
 import { format } from 'date-fns';
@@ -70,7 +70,7 @@ const DashboardContainer = styled.section`
 
 
 export default function DashboardPage() {
-  const { animals, setAnimals } = useAnimals();
+  const { state: animals, dispatch } = useAnimals();
   const router = useRouter();
 
   //acessa a api para buscar todops os animais que um usuário cadastrou
@@ -79,13 +79,13 @@ export default function DashboardPage() {
       const response = await fetch('/api/dashboard/animals');
       if (response.ok) {
         const data = await response.json();
-        setAnimals(data); // Atualiza a lista de animais no estado
+        dispatch({ type: 'SET_ANIMALS', payload: data }); // Atualiza a lista de animais no estado
       } else {
         console.error('Erro ao buscar os animais');
       }
     }
     fetchUserAnimals();
-  }, []);
+  }, [dispatch]);
 
   const handleDelete = async (id: string | undefined) => {
     const confirm = window.confirm('Tem certeza que deseja excluir este animal?');
@@ -97,7 +97,7 @@ export default function DashboardPage() {
 
       if (response.ok) {
         alert('Animal excluído com sucesso.');
-        setAnimals(animals.filter((animal) => animal.id !== id));
+        dispatch({ type: 'REMOVE_ANIMAL', payload: id });
       }
     }
   };

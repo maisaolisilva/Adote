@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { useAnimals } from "@/components/AnimalContext";
-import { useSession } from "next-auth/react";
 
 const HomeContainer = styled.section`
   margin: 20px 10px ;
@@ -50,7 +49,7 @@ const HomeContainer = styled.section`
 `
 
 export default function Home() {
-  const { animals, setAnimals } = useAnimals();
+  const { state: animals, dispatch } = useAnimals();
   const router = useRouter();
 
   // Busca os animais da API para exibição inicial
@@ -60,13 +59,13 @@ export default function Home() {
       if (response.ok) {
         const data = await response.json();
 
-        setAnimals(data); // Atualiza o estado global com os dados da API
+        dispatch({ type: 'SET_ANIMALS', payload: data}); // Atualiza o estado global com os dados da API
       } else {
         console.error('Erro ao buscar os animais');
       }
     }
     fetchAnimals();
-  }, [setAnimals]);
+  }, [dispatch]);
   
   return (
     <HomeContainer>
