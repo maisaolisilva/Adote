@@ -50,10 +50,11 @@ const HomeContainer = styled.section`
 export default function Home() {
   const { state: animals, dispatch } = useAnimals();
 
+
   // Busca os animais da API para exibição inicial
   useEffect(() => {
     async function fetchAnimals() {
-      const response = await fetch('/api/home');
+      const response = await fetch(`/api/home?timestamp=${Date.now()}`);
       if (response.ok) {
         const data = await response.json();
         dispatch({ type: 'SET_ANIMALS', payload: data}); // Atualiza o estado global com os dados da API
