@@ -58,7 +58,6 @@ export default function Home() {
       const response = await fetch('/api/home');
       if (response.ok) {
         const data = await response.json();
-
         dispatch({ type: 'SET_ANIMALS', payload: data}); // Atualiza o estado global com os dados da API
       } else {
         console.error('Erro ao buscar os animais');
