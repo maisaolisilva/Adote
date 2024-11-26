@@ -1,20 +1,16 @@
 import { NextResponse } from 'next/server';
 import User from '@/models/User'; // Importa o modelo de utilizador
-import clientPromise from '@/lib/mongodb'; // Importa a conexão MongoDB
 import bcrypt from 'bcryptjs';
+import { dbConnect } from '@/lib/mongodb';
 
 //requisição do tipo post para cadastrar um novo usuário
 export async function POST(request: Request) {
   
-  // Conecta ao MongoDB usando clientPromise
-  const client = await clientPromise;
-  const db = client.db();
+  await dbConnect();
 
   // Obtém os dados do corpo da requisição
   const body = await request.json();
   const { email, password, nome, endereco, phone, birthDate, profileImageUrl } = body;
-  
-  console.log("Dados recebidos na API de registro:", { email, password, nome, endereco, phone, birthDate, profileImageUrl });
 
 
   // Verifica se todos os campos obrigatórios foram preenchidos
@@ -29,7 +25,7 @@ export async function POST(request: Request) {
   
 
   // Verifica se o email já está registrado
-  const existingUser = await db.collection('users').findOne({ email });
+  const existingUser = await User.findOne({ email });
   if (existingUser) {
     return NextResponse.json({ message: 'Email já está em uso' }, { status: 400 });
   }
@@ -45,7 +41,7 @@ export async function POST(request: Request) {
   }
 
   // Cria um novo utilizador
-  const user = new User({
+  const user = await User.create({
     fullName: nome,
     email,
     password: hashedPassword,
@@ -54,9 +50,6 @@ export async function POST(request: Request) {
     birthDate: userBirthDate,
     profileImageUrl
   });
-
-  // Salva o utilizador no banco de dados
-  await db.collection('users').insertOne(user);
 
   return NextResponse.json({ message: 'Usuário registrado com sucesso!' }, { status: 201 });
 }

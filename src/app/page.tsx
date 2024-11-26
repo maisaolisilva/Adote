@@ -3,7 +3,6 @@
 import styled from "styled-components";
 import Titulo from "@/components/Titulo";
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { useAnimals } from "@/components/AnimalContext";
@@ -50,7 +49,6 @@ const HomeContainer = styled.section`
 
 export default function Home() {
   const { state: animals, dispatch } = useAnimals();
-  const router = useRouter();
 
   // Busca os animais da API para exibição inicial
   useEffect(() => {
