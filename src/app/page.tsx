@@ -70,24 +70,28 @@ export default function Home() {
   return (
     <HomeContainer>
       <Titulo>Animais cadastrados: </Titulo>
-      {animals && animals.length > 0 ? (
-      <ul>
-        {animals.map((animal) => (
-          <li key={animal.id}>
-            <Image src={animal.imageUrl} alt="Imagem do animal" width={250} height={250} style={{ borderRadius: '20%' }}/>
-            <div>
-              <p>Tipo: {animal.type}</p>
-              <p>História: {animal.story}</p>
-            </div>
-            <Link href={`/animal/${animal.id}`}>
-              Conferir Detalhes
-            </Link>
-          </li>
-        ))}
-      </ul>
-    ) : (
-      <p>Carregando animais...</p>
-    )}
+      {!animals || animals.length === 0 ? (
+        <h2>Animais cadastrados aparecerão aqui</h2>
+      ) : (
+        <ul>
+          {animals.map((animal) => (
+            <li key={animal.id}>
+              <Image
+                src={animal.imageUrl}
+                alt="Imagem do animal"
+                width={250}
+                height={250}
+                style={{ borderRadius: '20%' }}
+              />
+              <div>
+                <p>Tipo: {animal.type}</p>
+                <p>História: {animal.story}</p>
+              </div>
+              <Link href={`/animal/${animal.id}`}>Conferir Detalhes</Link>
+            </li>
+          ))}
+        </ul>
+      )}
     </HomeContainer>
   );
 }
