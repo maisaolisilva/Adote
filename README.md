@@ -108,54 +108,48 @@ O modelo `User` representa os dados de cada usuário registrado na plataforma.
 
 ---
 
-## **Arquitetura da Aplicação Adote**
+## Arquitetura da Aplicação
 
-Adote Application
-├── Front-end
-│   ├── Framework: Next.js
-│   │   ├── Páginas (Pages)
-│   │   │   ├── Home
-│   │   │   ├── Registro
-│   │   │   ├── Dashboard
-│   │   │   └── Detalhes do Animal
-│   │   ├── Componentes
-│   │   │   ├── Header
-│   │   │   ├── Footer
-│   │   │   ├── Cards de Animais
-│   │   │   └── Formulários
-│   │   └── Estilização: Styled Components
-│   └── Gerenciamento de Estado: Next.js API Routes e React Context
-│
-├── Back-end
-│   ├── API
-│   │   ├── Autenticação
-│   │   │   └── NextAuth (Com suporte ao MongoDB)
-│   │   ├── Upload de Imagens
-│   │   │   └── Cloudinary
-│   │   ├── Gerenciamento de Animais
-│   │   │   ├── CRUD (Create, Read, Update, Delete)
-│   │   │   └── Integração com MongoDB
-│   │   └── Rota de Dashboard
-│   └── Banco de Dados
-│       ├── MongoDB
-│       └── Mongoose para ODM
-│
-├── Deploy
-│   ├── Plataforma: Vercel
-│   └── Configurações:
-│       ├── Variáveis de Ambiente
-│       ├── Configuração de Build Automático
-│       └── URL de Produção: https://adote-[random_id].vercel.app
-│
-├── Integrações Externas
-│   ├── Cloudinary
-│   │   ├── Upload de Imagens
-│   │   └── Gerenciamento de Recursos
-│   └── Serviços de Autenticação via NextAuth
-│
-└── Testes
-    └── Testes Manuais: Inspeção visual em ambientes de desenvolvimento e produção
+A aplicação **Adote** foi projetada com uma arquitetura moderna, utilizando tecnologias amplamente adotadas no desenvolvimento web. Abaixo, é detalhada a arquitetura da aplicação, suas camadas e as responsabilidades de cada parte.
 
+---
+
+### Estrutura Geral
+
+```plaintext
+```plaintext
+├── app/
+│   ├── about/          # Página de informações sobre a aplicação
+│   ├── api/            # Rotas da API (RESTful e Streams)
+│   │   ├── animals/    # API para gerenciamento de animais
+│   │   ├── auth/       # Autenticação (NextAuth.js)
+│   │   ├── dashboard/  # API para gerenciar animais do usuário autenticado
+│   │   ├── home/       # API para listagem de animais na home
+│   │   ├── users/      # API para gerenciar usuários
+│   │   └── sign-cloudinary-params/ # API para assinar parâmetros do Cloudinary
+│   ├── dashboard/      # Página do dashboard para gerenciar animais
+│   ├── profile/        # Página de perfil do usuário
+│   ├── animal/         # Página de detalhes de um animal
+│   ├── auth/           # Páginas de login e registro
+│   ├── fonts/          # Arquivos de fontes personalizados
+│   ├── interfaces/     # Definições de tipos e interfaces para TypeScript
+│   ├── reducers/       # Reducers para gerenciamento de estado global
+│   ├── layout.tsx      # Layout padrão compartilhado entre as páginas
+│   └── page.tsx        # Página inicial (Home)
+├── components/         # Componentes reutilizáveis (UI e lógica)
+│   ├── AvatarUpload/   # Componente para upload de imagem de perfil
+│   ├── BotaoHome/      # Botão para navegar para a página inicial
+│   ├── Cabecalho/      # Cabeçalho da aplicação com links de navegação
+│   ├── Rodape/         # Rodapé da aplicação
+│   ├── AnimalContext/  # Contexto para gerenciamento global de animais
+│   ├── Titulo/         # Componente estilizado para títulos principais
+│   ├── TituloSecundario/ # Componente estilizado para títulos secundários
+│   └── SessionProviderWrapper.tsx # Wrapper para gerenciar sessões do NextAuth.js
+├── lib/                # Funções auxiliares e configurações globais
+│   ├── mongodb.ts      # Conexão com o MongoDB
+│   ├── authConfig.ts   # Configurações do NextAuth.js
+├── models/             # Modelos Mongoose (animais e usuários)
+```
 ---
 
 ## 📂 **Como Executar Localmente**
@@ -211,4 +205,5 @@ Futuramente pretende-se implementar um meio de recuperação de senhas e também
 1. Adicionar a possibilidade de o usuário mudar sua senha.
 2. Adicionar página para pedidos de ajuda ou doações de pessoas que cuidam de animais abandonados.
 3. Aperfeiçoar o *desing* do site.
+4. Filtros de busca.
 
