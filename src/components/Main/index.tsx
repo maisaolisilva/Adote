@@ -2,13 +2,14 @@
 import React from "react";
 import styled from "styled-components";
 import Cabecalho from "../Cabecalho";
+import Rodape from "../rodape";
 
 interface MainProps {
   children: React.ReactNode;
 }
 
 const StyledContainer = styled.section`
-    margin: 45px 10px;
+    margin: 45px 20px;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -22,6 +23,7 @@ export default function Main({ children }: MainProps) {
     <StyledContainer>
       <Cabecalho />
       <main>{children}</main>
+      <Rodape />
     </StyledContainer>
   </>
   

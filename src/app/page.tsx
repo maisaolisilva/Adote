@@ -2,7 +2,7 @@
 
 import styled from "styled-components";
 import Titulo from "@/components/Titulo";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useAnimals } from "@/components/AnimalContext";
@@ -44,13 +44,72 @@ const HomeContainer = styled.section`
         opacity: 0.8;
       }
     }
+    .update-button {
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #624e88;
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+
+    &.highlight {
+      background-color: red;
+      animation: blink 1s infinite;
+    }
+  }
+
+  @keyframes blink {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  .titulo-botao{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
   
 `
 
 export default function Home() {
   const { state: animals, dispatch } = useAnimals();
+  const [hasUpdates, setHasUpdates] = useState(false);
 
+    // Verifica atualizações nos dados
+    const checkUpdates = async () => {
+      const response = await fetch(`/api/home?timestamp=${Date.now()}`);
+      if (response.ok) {
+        const newData = await response.json();
+         // Verifica se os dados são diferentes
+      const isUpdated = JSON.stringify(newData) !== JSON.stringify(animals);
+      if (isUpdated) {
+        setHasUpdates(true);
+      }
+    } else {
+      console.error('Erro ao verificar atualizações');
+    }
+  };
 
+   // Atualiza os dados ao clicar no botão
+   const updateAnimals = async () => {
+    const response = await fetch(`/api/home?timestamp=${Date.now()}`);
+    if (response.ok) {
+      const data = await response.json();
+      dispatch({ type: 'SET_ANIMALS', payload: data });
+      setHasUpdates(false); // Remove o destaque do botão
+    } else {
+      console.error('Erro ao buscar os animais');
+    }
+  };
+  
   // Busca os animais da API para exibição inicial
   useEffect(() => {
     async function fetchAnimals() {
@@ -63,11 +122,21 @@ export default function Home() {
       }
     }
     fetchAnimals();
-  }, [dispatch]);
+    const interval = setInterval(checkUpdates, 30000);
+    return () => clearInterval(interval); // Limpa o intervalo ao desmontar o componente
+  }, [dispatch, animals]);
   
   return (
     <HomeContainer>
-      <Titulo>Animais cadastrados: </Titulo>
+      <div className="titulo-botao">
+        <Titulo>Animais cadastrados: </Titulo>
+        <button
+          className={`update-button ${hasUpdates ? 'highlight' : ''}`}
+          onClick={updateAnimals}
+        >
+          {hasUpdates ? 'Novas atualizações disponíveis' : 'Recarregar lista'}
+        </button>
+      </div>
       {!animals || animals.length === 0 ? (
         <h2>Animais cadastrados aparecerão aqui</h2>
       ) : (
