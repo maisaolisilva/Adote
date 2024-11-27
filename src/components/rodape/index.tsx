@@ -45,7 +45,7 @@ export default function Rodape() {
                 <a href="https://wa.me/+5524992581089?text=Estou%20entrando%20em%20contato%20pelo%20projeto%20Adote."><FaWhatsapp size={30}/></a>
             </div>
             <section>
-                <BiCopyright size={30}/> <p>Todos os direitos reservados</p>
+                <BiCopyright size={30}/>
             </section>
         </StyledFooter>
     )
