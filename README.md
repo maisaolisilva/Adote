@@ -30,19 +30,27 @@ Facilitar o processo de adoção de animais:
 - **Styled Components**: Estilização baseada em componentes para uma experiência visual elegante.
 - **Next Cloudinary**: Integração simplificada com a API do Cloudinary.
 
+### **Gerenciamento de Estados**
+Foi implementado o **useReducer** para gerenciar a lista de animais cadastrados, centralizando o controle de ações e refleteindo as mudanças na página home.
+
+
 ---
 
 ## 🚀 **Funcionalidades Principais**
 1. Cadastro de animais disponíveis para adoção.
 2. Sistema de autenticação seguro para usuários.
- Upload e exibição de imagens dos animais.
+3. Upload e exibição de imagens dos animais.
 5. Responsividade para dispositivos móveis e desktops.
+6. Criptografia de senhas com bcrypt.
+7. Listagem de animais disponíveis na página inicial.
+8. cadastro, edição e exclusão de animais através do painel **Dashboard**.
 
 ---
+##
+---
+## **Modelos de Dados**
 
-# Modelos de Dados
-
-## Modelo: Animal
+### Modelo: Animal
 
 O modelo `Animal` representa os dados de cada animal disponível para adoção.
 
@@ -73,7 +81,7 @@ O modelo `Animal` representa os dados de cada animal disponível para adoção.
 
 ---
 
-## Modelo: Usuário
+### Modelo: Usuário
 
 O modelo `User` representa os dados de cada usuário registrado na plataforma.
 
@@ -92,7 +100,7 @@ O modelo `User` representa os dados de cada usuário registrado na plataforma.
 | `createdAt`        | `Date`             | Automático  | Data de criação do registro, gerado automaticamente.                    |
 | `updatedAt`        | `Date`             | Automático  | Data de última atualização do registro, gerado automaticamente.         |
 
-### Observações
+### **Observações**
 
 - O campo `_id` é substituído por um campo `id` de string nas respostas das APIs, para facilitar a manipulação no front-end.
 - A senha do usuário é armazenada de forma segura, usando hash com `bcrypt`.
@@ -100,9 +108,8 @@ O modelo `User` representa os dados de cada usuário registrado na plataforma.
 
 ---
 
-# Arquitetura da Aplicação Adote
+## **Arquitetura da Aplicação Adote**
 
-```plaintext
 Adote Application
 ├── Front-end
 │   ├── Framework: Next.js
@@ -191,4 +198,10 @@ CLOUDINARY_API_KEY=123456789012345
 CLOUDINARY_API_SECRET=minha_chave_secreta
 NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=meu_cloudinary
 NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET=ml_default
+```
+### **Dicas**
+1. Utilize o Postman ou outra ferramenta para testar as API.
+2. Não se esqueça de usar bases de dados para sua aplicação local diferentes da aplicação em produção.
+3. As senhas dos usuários **precisam** ser criptografadas.
+4. Atente-se para a versão do Next.js que está a utilizar.
 
