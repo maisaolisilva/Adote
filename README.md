@@ -205,3 +205,10 @@ NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET=ml_default
 3. As senhas dos usuários **precisam** ser criptografadas.
 4. Atente-se para a versão do Next.js que está a utilizar.
 
+---
+## **Para o Futuro**
+Futuramente pretende-se implementar um meio de recuperação de senhas e também outro meio de autenticação, como pela conta do *Google*. Outras possíveis atualizações, incluem:
+1. Adicionar a possibilidade de o usuário mudar sua senha.
+2. Adicionar página para pedidos de ajuda ou doações de pessoas que cuidam de animais abandonados.
+3. Aperfeiçoar o *desing* do site.
+
