@@ -2,7 +2,7 @@
 import React from "react";
 import styled from "styled-components";
 import Cabecalho from "../Cabecalho";
-import Rodape from "../Rodape";
+import Rodape from "@/components/Rodape";
 
 interface MainProps {
   children: React.ReactNode;
